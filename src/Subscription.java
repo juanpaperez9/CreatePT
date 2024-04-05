@@ -6,15 +6,19 @@ public class Subscription {
     private int subscriptionTime;
     private int welcomePoints;
     private int accumulatedPoints;
+    private int subscriptionDuration; // Added field for subscription duration
+
 
     public Subscription(String firstName, String lastName, int stratum, String subscriptionType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.stratum = stratum;
         this.subscriptionType = subscriptionType;
-        // Additional initialization if needed
+        this.accumulatedPoints = 50;
+        setSubscriptionDuration(); 
+        
     }
-
+    // getter and setter methods
     public String getFirstName() {
         return firstName;
     }
@@ -41,5 +45,28 @@ public class Subscription {
 
     public int getAccumulatedPoints() {
         return accumulatedPoints;
+    }
+    
+    public int getSubscriptionDuration() {
+        return subscriptionDuration;
+    }
+    
+    private void setSubscriptionDuration() {
+        switch (subscriptionType.toUpperCase()) {
+            case "CF":
+                subscriptionDuration = 3;
+                break;
+            case "DA":
+                subscriptionDuration = 6;
+                break;
+            case "CO":
+                subscriptionDuration = 9;
+                break;
+            case "E":
+                subscriptionDuration = 12;
+                break;
+            default:
+                subscriptionDuration = 0; // Default duration if subscription type is invalid
+        }
     }
 }

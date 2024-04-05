@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
- 
 
 public class SubscriptionManager {
     private static final float BASE_SUBSCRIPTION_RATE = 299;
@@ -33,7 +32,7 @@ public class SubscriptionManager {
         System.out.println("Subscription summary:");
         System.out.println("Customer: " + subscription.getFirstName() + " " + subscription.getLastName());
         System.out.println("Subscription type: " + subscription.getSubscriptionType());
-        System.out.println("Duration: " + subscription.getSubscriptionTime() + " months");
+        System.out.println("Duration: " + subscription.getSubscriptionDuration() + " months");
         System.out.println("Accumulated points: " + subscription.getAccumulatedPoints());
 
         float subtotal = calculateSubtotal(subscription);
@@ -41,6 +40,7 @@ public class SubscriptionManager {
 
         System.out.println("Subtotal before tax: " + subtotal);
         System.out.println("Total to pay with tax: " + total);
+        System.out.println("Value applied in the discount: " + (BASE_SUBSCRIPTION_RATE - subtotal));
     }
 
     private float calculateSubtotal(Subscription subscription) {
@@ -51,19 +51,10 @@ public class SubscriptionManager {
             if (subscription.getStratum() == 1 || subscription.getStratum() == 2) {
                 discount += 0.10 * rate;
             }
-            if (subscription.getSubscriptionTime() == 12) {
-                discount += 0.05 * rate;
-            }
-            System.out.println("Alliances to be defined. We will inform you soon.");
         } else if (subscription.getSubscriptionType().equalsIgnoreCase("DA")) {
-            if (subscription.getSubscriptionTime() == 12) {
-                discount += 0.05 * rate;
+            if (subscription.getStratum() == 1 || subscription.getStratum() == 2) {
+                discount += 0.10 * rate;
             }
-            System.out.println("Alliances to be defined. We will inform you soon.");
-        } else if (subscription.getSubscriptionType().equalsIgnoreCase("CO")) {
-            System.out.println("Single semester fee of 299,000 for CO customer");
-        } else if (subscription.getSubscriptionType().equalsIgnoreCase("E")) {
-            System.out.println("Alliances to be defined. We will inform you soon.");
         }
 
         return rate - discount;
